@@ -2,13 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
     <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
-    <title>D3</title>
+    <title>Covid-19 Narrative Visualization</title>
+
+    <!--link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/blog/"-->
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
+
 </head>
 <body>
+
+  <div class="container">
+    <header class="blog-header py-3">
+        <div class="text-center">
+          <a class="blog-header-logo text-dark" href="#">Covid-19 Narrative Visualization</a>
+        </div>
+    </header>
+  
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" href="#">Introduction</a>
+        <a class="p-2 text-muted" href="#">Scene 1</a>
+        <a class="p-2 text-muted" href="#">Scene 2</a>
+        <a class="p-2 text-muted" href="#">Scene 3</a>
+        <a class="p-2 text-muted" href="#">Key Takeaways</a>
+
+      </nav>
+    </div>
+  
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+      <div class="col-md-6 px-0">
+        <h1 class="display-4 font-italic">How does lockdown measures correlate with new Covid-19 cases?</h1>
+        <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+        <!--p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p-->
+      </div>
+    </div>
+  </div>
+
   <script>
     var margin = { top: 50, right: 50, bottom: 50, left: 50 },
         width = 970 - margin.left - margin.right,
@@ -22,6 +78,8 @@
             .style("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
   </script>
+
 </body>
 </html>
