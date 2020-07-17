@@ -1,8 +1,23 @@
-// The svg
-var svg = d3.select("svg"),
-width = +svg.attr("width"),
-height = +svg.attr("height");
+// set the dimensions and margins of the graph
+var margin = {top: 30, right: 30, bottom: 30, left: 30},
+    width = 1024 - margin.left - margin.right,
+    height = 480 - margin.top - margin.bottom;
 
+// Add an svg element for each group. The will be one beside each other and will go on the next row when no more room available
+var svg = d3.select("#scene-1")
+// var svg = d3.select("svg")
+//  .selectAll("uniqueChart")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+// The svg
+// var svg = d3.select("svg"),
+// width = +svg.attr("width"),
+// height = +svg.attr("height");
 
 
 // Map and projection
@@ -42,32 +57,6 @@ svg.append("g")
     )
   .style("stroke", "none")
   .style("opacity", .3)
-
-// create a tooltip
-//var Tooltip = d3.select("#my_dataviz")
-var Tooltip = d3.select("svg")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 1)
-    .style("background-color", "white")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px")
-
-// Three function that change the tooltip when user hover / move / leave a cell
-var mouseover = function(d) {
-    Tooltip.style("opacity", 1)
-}
-var mousemove = function(d) {
-    Tooltip
-    .html(d.name + "<br>" + "long: " + d.long + "<br>" + "lat: " + d.lat)
-    .style("left", (d3.mouse(this)[0]+10) + "px")
-    .style("top", (d3.mouse(this)[1]) + "px")
-}
-var mouseleave = function(d) {
-    Tooltip.style("opacity", 0)
-}
   
 // Add circles:
 svg
@@ -82,9 +71,9 @@ svg
   .attr("stroke", function(d){ if(d.n>2000){return "black"}else{return "none"}  })
   .attr("stroke-width", 1)
   .attr("fill-opacity", .4)
-  .on("mouseover", mouseover)
-  .on("mousemove", mousemove)
-  .on("mouseleave", mouseleave)
+//  .on("mouseover", mouseover)
+//  .on("mousemove", mousemove)
+//  .on("mouseleave", mouseleave)
 
 
 
@@ -93,10 +82,10 @@ svg
 .append("text")
   .attr("text-anchor", "end")
   .style("fill", "black")
-  .attr("x", width - 10)
-  .attr("y", height - 30)
+  .attr("x", width - 70)
+  .attr("y", height - 50)
   .attr("width", 90)
-  .html("WHERE SURFERS LIVE")
+  .html("COVID-19")
   .style("font-size", 14)
 
 
