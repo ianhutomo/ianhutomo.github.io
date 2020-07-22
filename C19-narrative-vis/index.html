@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
-    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
 
     <!-- Load d3.js and the geo projection plugin -->
-    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+    <!--script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script-->
 
     <title>Covid-19 Narrative Visualization</title>
 
@@ -35,20 +36,63 @@
           font-size: 3.5rem;
         }
       }
+      /*
       .bar1 { fill: aqua; }
       .bar2 { fill: deepskyblue; }
       .bar3 { fill: steelblue; }
       .bar:hover {fill: orange; }
+      */
       .axis--x path { display: none; }
       .line {
           fill: none;
           stroke: rgb(207, 44, 44);
           stroke-width: 2;
       }
+      /*
       .dot {
           fill: royalblue;
           stroke: royalblue;
       }
+      
+      .rectangle {
+        fill: steelblue;
+      }
+      .rectangle:hover {
+        fill: orange;
+      }
+      */
+      .axis {
+        font: 10px sans-serif;
+      }
+      
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+      .bar {
+      fill: steelblue;
+      }
+
+      .bar:hover {
+        fill: brown;
+      }
+
+      /*
+      .axis--x path {
+        display: none;
+      }
+      
+      svg {
+        position: absolute;
+        margin-top: 40px;
+      }
+      
+      select {
+        margin-left: 60px;
+      }
+      */
     </style>
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
@@ -104,19 +148,19 @@
         <h2>Heading</h2>
         <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
         
-        <!-- Scene 1 Visualisation Script -->
+        <!-- Scene 1 Visualisation Script>
         <div id="scene-1"></div>
-        <!--svg width="1024" height="480"></svg-->
-        <script src="scene-1.js"></script>
+        <!--svg width="1024" height="480"></svg>
+        <script src="scene-1.js"></script-->
         
         <h3>Sub-heading</h3>
         <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
         <pre><code>Example code block</code></pre>
         <p>Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
         
-        <!-- Scene 2 Visualisation Script -->
+        <!-- Scene 2 Visualisation Script>
         <div id="scene-2"></div>
-        <script src="scene-2.js"></script>
+        <script src="scene-2.js"></script-->
         
         <h3>Sub-heading</h3>
         <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
@@ -126,9 +170,20 @@
           <li>Nulla vitae elit libero, a pharetra augue.</li>
         </ul>
 
-        <!-- Scene 3 Visualisation Script -->
+        <!-- Scene 3 Visualisation Script>
         <div id="scene-3"></div>
-        <script src="scene-3.js"></script>
+        <script src="scene-3.js"></script-->
+        
+        <select id="filter">
+            <option value="United States">United States</option>
+            <option value="Japan">Japan</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="New Zealand">Afghanistan</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        <svg id=scene-3 width="960" height="640"></svg>
+        <script src="scene-3b.js"></script>
 
 
         <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>

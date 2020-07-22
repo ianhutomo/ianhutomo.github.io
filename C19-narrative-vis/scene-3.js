@@ -25,26 +25,39 @@ var dataset = [
   ];
 */
 
-const dataset = d3.csv('./owid-covid-data-us.csv');
+//const dataset =  await d3.csv('./owid-covid-data-us.csv');
+
+const parseDateTime = d3.timeParse('%d-%m-%Y');
+
+d3.csv('./owid-covid-data-us.csv')
+  .row((data) => {
+
+    const minDate = d3.min(data, (d) => { return d.date; });
+    const maxDate = d3.max(data, (d) => { return d.date; });
+
+    return {
+      date: parseDateTime(data.date),
+    }
+  })
 
 var margin3 = {top: 20, right: 20, bottom: 30, left: 40},
     width3 = 960,
     height3 = 360;
 
-var xScale = d3.scaleBand()
+var xScale = d3.scaleTime()
             .rangeRound([0, width3])
             .padding(0.1)
-            .domain(dataset.map(function(d) {
-                return d.date;
-            }));
+            //.domain(dataset.map(function(d) {return d['date'];}));
+            .domain([minDate,maxDate]);
     yScale = d3.scaleLinear()
             .rangeRound([height3, 0])
             .domain([0, d3.max(dataset, (function (d) {
-                return d.new_cases;
+                return d['new_cases'];
             }))]);
 
 var svg3 = d3.select("#scene-3")
         .append("svg")
+        .data(dataset)
         .attr("width", width3 + margin3.left + margin3.right)
         .attr("height", height3 + margin3.top + margin3.bottom);
 
@@ -68,10 +81,10 @@ var bar = gr.selectAll("rect")
 
 // bar chart
 bar.append("rect")
-.attr("x", function(d) { return xScale(d.date); })
-.attr("y", function(d) { return yScale(d.new_cases);})
+.attr("x", function(d) { return xScale(d['date']); })
+.attr("y", function(d) { return yScale(d['new_cases']);})
 .attr("width", xScale.bandwidth())
-.attr("height", function(d) { return height3 - yScale(d.stringency_index); })
+.attr("height", function(d) { return height3 - yScale(d['stringency_index']); })
 /*.attr("class", function(d) {
     var s = "bar ";
     if (d[2] < 400) {
@@ -86,20 +99,20 @@ bar.append("rect")
 // labels on the bar chart
 bar.append("text")
 .attr("dy", "1.3em")
-.attr("x", function(d) { return xScale(d.date) + xScale.bandwidth() / 2; })
-.attr("y", function(d) { return yScale(d.new_cases); })
+.attr("x", function(d) { return xScale(d['date']) + xScale.bandwidth() / 2; })
+.attr("y", function(d) { return yScale(d['new_cases']); })
 .attr("text-anchor", "middle")
 .attr("font-family", "sans-serif")
 .attr("font-size", "11px")
 .attr("fill", "black")
 .text(function(d) {
-    return d.stringency_index;
+    return d['stringency_index'];
 });
 
 // line chart
 var line = d3.line()
-    .x(function(d, i) { return xScale(d.date) + xScale.bandwidth() / 2; })
-    .y(function(d) { return yScale(d.stringency_index); })
+    .x(function(d, i) { return xScale(d['date']) + xScale.bandwidth() / 2; })
+    .y(function(d) { return yScale(d['stringency_index']); })
 //    .curve(d3.curveMonotoneX);
 
 bar.append("path")
