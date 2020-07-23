@@ -1,15 +1,15 @@
 
-var svg = d3.select("svg"),
-margin = {top: 20, right: 30, bottom: 70, left: 40},
-width = +svg.attr("width") - margin.left - margin.right,
-height = +svg.attr("height") - margin.top - margin.bottom;
+var svg3 = d3.select("#scene-3"),
+margin3 = {top: 20, right: 30, bottom: 70, left: 40},
+width3 = +svg3.attr("width") - margin3.left - margin3.right,
+height3 = +svg3.attr("height") - margin3.top - margin3.bottom;
 
-var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-y = d3.scaleLinear().rangeRound([height,0]),
-z = d3.scaleLinear().rangeRound([height,0]);
+var x = d3.scaleBand().rangeRound([0, width3]).padding(0.2),
+y = d3.scaleLinear().rangeRound([height3,0]),
+y1 = d3.scaleLinear().rangeRound([height3,0]);
 
-var g = svg.append("g")
-.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var g = svg3.append("g")
+.attr("transform", "translate(" + margin3.left + "," + margin3.top + ")");
 
 // create a variable that will hold the loaded data
 var csv;
@@ -31,20 +31,21 @@ csv = datafile;
 
 // filter the data based on the inital value
 var data = csv.filter(function(d) { 
-var sq = d3.select("#filter").property("value");
+var sq = d3.select("#filter-3").property("value");
 return d.location === sq;
 });
 
 // set the domains of the axes
 x.domain(data.map(function(d) { return d.date; }));
 y.domain([0, d3.max(data, function(d) { return d.new_cases; })]);
-z.domain([0,100]);
+y1.domain([0,100]);
 //z.domain([0, d3.max(data, function(d) { return d.stringency_index;})]);
 
 // X axis
 g.append("g")
   .attr("class", "axis axis--x")
-  .attr("transform", "translate(0," + height + ")")
+  .attr("transform", "translate(0," + height3 + ")")
+  //.call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b-%d")))
   .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b-%d")))
   .selectAll("text")	
         .style("text-anchor", "end")
@@ -56,7 +57,7 @@ g.append("g")
 g.append("g")
   .attr("class", "axis axis--y")
   .attr("id", "y-axis")
-  .call(d3.axisLeft(y)/*.ticks(10, "%")*/)
+  .call(d3.axisLeft(y))
 //.append("text")
 //  .attr("transform", "rotate(-90)")
 //  .attr("y", 6)
@@ -66,10 +67,10 @@ g.append("g")
 
 //Y axis Right 
 g.append("g")
-  .attr("class", "axis axis--z")
-  .attr("transform", "translate("+ width+",0)")
-  .attr("id", "z-axis")
-  .call(d3.axisRight(z)/*.ticks(10, "%")*/)
+  .attr("class", "axis axis--y1")
+  .attr("transform", "translate("+ width3+",0)")
+  .attr("id", "y1-axis")
+  .call(d3.axisRight(y1))
 
 // create the bars
 g.selectAll(".bar")
@@ -79,23 +80,22 @@ g.selectAll(".bar")
   .attr("x", function(d) { return x(d.date); })
   .attr("y", function(d) { return y(d.new_cases); })
   .attr("width", x.bandwidth())
-  .attr("height", function(d) { return height - y(d.new_cases); });
+  .attr("height", function(d) { return height3 - y(d.new_cases); });
 
 
 // line chart
 var line = d3.line()
     .x(function(d) { return x(d.date); })
-    .y(function(d) { return z(d.stringency_index); })
+    .y(function(d) { return y1(d.stringency_index); })
 //    .curve(d3.curveMonotoneX);
 
 g.append("path")
-    .data(data)
     .attr("class", "line") // Assign a class for styling
     .attr("id", "si_line")
-    .attr("d", line(data)); // 11. Calls the line generator
+    .attr("d", line(data)); //Calls the line generator
 
 // add a change event handler 
-d3.select("#filter").on("change", function() {
+d3.select("#filter-3").on("change", function() {
   applyFilter(this.value);
 });
 
@@ -118,18 +118,17 @@ d3.selectAll(".bar")
   .transition().duration(1000)
   .attr("x", function(d) { return x(d.date); })
   .attr("y", function(d) { return y(d.new_cases); })
-  .attr("height", function(d) { return height - y(d.new_cases); });
+  .attr("height", function(d) { return height3 - y(d.new_cases); });
 
 // line chart
 line = d3.line()
     .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.stringency_index); })
-//    .curve(d3.curveMonotoneX);
+    .y(function(d) { return y1(d.stringency_index); })
 
 g.select("#si_line")
     .attr("class", "line") // Assign a class for styling
-    .attr("d", line(data)) // Calls the line generator
-    .transition().duration(1000);
+    .transition().duration(1000)
+    .attr("d", line(data)); // Calls the line generator
 }
 
 });
