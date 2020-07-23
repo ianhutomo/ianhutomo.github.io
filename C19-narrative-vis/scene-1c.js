@@ -13,14 +13,17 @@ var projection = d3.geoMercator()
 
 // Data and color scale
 var mapdata = d3.map();
+
 var colorScale = d3.scaleThreshold()
-  .domain([20,40,60,70,80,90])
-  .range(d3.schemeReds[7]);
+  .domain([10,20,30,40,50,60,70,80,90])
+  .range(d3.schemeReds[9]);
+
+var parseTime = d3.timeParse("%m/%e/%Y");
 
 // Load external data and boot
 d3.queue()
   .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-  .defer(d3.csv, "./owid-covid-data.csv", function(d) { mapdata.set(d.iso_code, +d.stringency_index); })
+  .defer(d3.csv, "./owid-covid-data.csv", function(d) {mapdata.set(d.iso_code, +d.stringency_index); })
   .await(ready);
 
 console.log(mapdata);
@@ -36,7 +39,7 @@ function ready(error, topo) {
       .transition()
       .duration(200)
       .style("opacity", 1)
-      .style("stroke", "black")
+      //.style("stroke", "black")
   }
 
   let mouseLeave = function(d) {
@@ -47,7 +50,7 @@ function ready(error, topo) {
     d3.select(this)
       .transition()
       .duration(200)
-      .style("stroke", "transparent")
+      //.style("stroke", "transparent")
   }
 
   // Draw the map
@@ -62,10 +65,11 @@ function ready(error, topo) {
       )
       // set the color of each country
       .attr("fill", function (d) {
-        d.total = mapdata.get(d.stringency_index) || 0;
+        d.total = mapdata.get(d.id) || 0;
+        //console.log(d.total);
         return colorScale(d.total);
       })
-      .style("stroke", "transparent")
+      .style("stroke", "black")
       .attr("class", function(d){ return "Country" } )
       .style("opacity", .8)
       .on("mouseover", mouseOver )

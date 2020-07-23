@@ -60,10 +60,12 @@ function hue(h) {
   handle.attr("cx", xslider(h));
   label
     .attr("x", xslider(h))
-    .text(formatDate(h))
-    .attr("fill", function (d) {
-      d.total = mapdata.get(d.id) || 0;
-      return colorScale(d.total);
-    });
+    .text(formatDate(h));
+    
+  svg1.selectAll("path")
+  .attr("fill", function (d) {
+    d.total = mapdata.get(d.id) || 0;
+    return colorScale(d.total);
+  });
   //svg1.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
 }
