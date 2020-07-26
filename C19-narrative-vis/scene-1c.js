@@ -18,15 +18,14 @@ var colorScale = d3.scaleThreshold()
   .domain([10,20,30,40,50,60,70,80,90])
   .range(d3.schemeReds[9]);
 
-var parseTime = d3.timeParse("%m/%e/%Y");
-
 // Load external data and boot
 d3.queue()
   .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-  .defer(d3.csv, "./owid-covid-data.csv", function(d) {mapdata.set(d.iso_code, +d.stringency_index); })
+  .defer(d3.csv, "./owid-covid-data.csv", function(d) {
+    mapdata.set(d.iso_code, +d.stringency_index);
+    return d;
+  })
   .await(ready);
-
-console.log(mapdata);
 
 function ready(error, topo) {
 
@@ -66,7 +65,6 @@ function ready(error, topo) {
       // set the color of each country
       .attr("fill", function (d) {
         d.total = mapdata.get(d.id) || 0;
-        //console.log(d.total);
         return colorScale(d.total);
       })
       .style("stroke", "black")

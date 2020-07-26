@@ -1,5 +1,7 @@
 # Does COVID-19 lockdown measures correlates with new cases?
 
+This narrative visualization will explore Stringency Index correlation to new Covid-19 cases accross different country around the globe
+
 ## About Stringency Index
 The Oxford COVID-19 Government Response Tracker (OxCGRT) systematically collects information on several different common policy responses that governments have taken to respond to the pandemic on 17 indicators such as school closures and travel restrictions. It now has data from more than 160 countries. 
 
@@ -35,4 +37,7 @@ This narrative visualisation was build as a final project for CS498: Data Visual
 Resources:
 - Data on COVID-19 (coronavirus) by Our World in Data https://github.com/owid/covid-19-data/tree/master/public/data
 - CORONAVIRUS GOVERNMENT RESPONSE TRACKER https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker
+
+D3 resources:
+- Bar Chart with update https://bl.ocks.org/saraquigley/fff2204cde6fa769696ef143273560ec
 

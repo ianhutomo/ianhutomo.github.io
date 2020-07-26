@@ -1,135 +1,173 @@
-// set the dimensions and margins of the graph
-var margin = {top: 30, right: 30, bottom: 30, left: 30},
-    width = 1024 - margin.left - margin.right,
-    height = 480 - margin.top - margin.bottom;
+//var formatDateIntoYear = d3.timeFormat("%b-%d");
+var formatDate = d3.timeFormat("%b-%d");
 
-// Add an svg element for each group. The will be one beside each other and will go on the next row when no more room available
-var svg = d3.select("#scene-1")
-// var svg = d3.select("svg")
-//  .selectAll("uniqueChart")
-  .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+var startDate = new Date("2020-02-01"),
+    endDate = new Date("2020-06-30"),
+    sliderDate = new Date("2020-02-01");
 
-// The svg
-// var svg = d3.select("svg"),
-// width = +svg.attr("width"),
-// height = +svg.attr("height");
+var margins = {top:0, right:50, bottom:0, left:50},
+    widths = 800 -margins.left - margins.right,
+    heights = 90 - margins.top - margins.bottom;
 
+// Data and color scale
+var mapdata = d3.map();
+
+//load data
+d3.csv("owid-covid-data.csv", function(d) {
+    d.new_cases = +d.new_cases;
+    d.date = parseTime(d.date);
+    d.date = formatDate(d.date);
+    d.stringency_index = +d.stringency_index;
+    d.total_cases = +d.total_cases;
+return d;
+}, function(error, datafile) {
+if (error) throw error;
+
+var svgs = d3.select("#slider")
+    .append("svg")
+    .attr("width", widths + margins.left + margins.right)
+    .attr("height", heights);
+
+var xslider = d3.scaleTime()
+    .domain([startDate, endDate])
+    .rangeRound([0, widths])
+    .clamp(true);
+
+var slider = svgs.append("g")
+    .attr("class", "slider")
+    .attr("transform", "translate(" + margins.left + "," + heights / 2 + ")");
+
+slider.append("line")
+    .attr("class", "track")
+    .attr("x1", xslider.range()[0])
+    .attr("x2", xslider.range()[1])
+  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    .attr("class", "track-inset")
+  .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
+    .attr("class", "track-overlay")
+    .call(d3.drag()
+        .on("start.interrupt", function() { slider.interrupt(); })
+        .on("start drag", function() { hue(xslider.invert(d3.event.x)); }));
+
+slider.insert("g", ".track-overlay")
+    .attr("class", "ticks")
+    .attr("transform", "translate(0," + 18 + ")")
+  .selectAll("text")
+    .data(xslider.ticks(10))
+    .enter()
+    .append("text")
+    .attr("x", xslider)
+    .attr("y", 10)
+    .attr("text-anchor", "middle")
+    .text(function(d) { return formatDate(d); });
+
+var label = slider.append("text")
+    .attr("class", "label")
+    .attr("text-anchor", "middle")
+    .text(formatDate(startDate))
+    .attr("transform", "translate(0," + (-25) + ")")
+
+var handle = slider.insert("circle", ".track-overlay")
+    .attr("class", "handle")
+    .attr("r", 5);
+
+// end of slider
+
+// The Map svg
+var svg1 = d3.select("#scene-1"),
+margin1 = {top: 20, right: 30, bottom: 70, left: 40},
+width1 = +svg1.attr("width") - margin1.left - margin1.right,
+height1 = +svg1.attr("height") - margin1.top - margin1.bottom;
 
 // Map and projection
+var geo_path = d3.geoPath();
 var projection = d3.geoMercator()
-.center([0,20])                // GPS of location to zoom on
-.scale(99)                       // This is like the zoom
-.translate([ width/2, height/2 ])
+  .scale(150)
+  .center([0,20])
+  .translate([width1 / 2, height1 / 2]);
 
+var colorScale = d3.scaleThreshold()
+  .domain([10,20,30,40,50,60,70,80,90])
+  .range(d3.schemeReds[9]);
+
+// Load external data and boot
 d3.queue()
-.defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")  // World shape
-.defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_gpsLocSurfer.csv") // Position of circles
-.await(ready);
+  .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+  .defer(d3.csv, "./owid-covid-data.csv", function(d) {
+    mapdata.set(d.iso_code, +d.stringency_index);
+    //return d;
+  })
+  .await(ready);
 
-function ready(error, dataGeo, data) {
+function ready(error, topo) {
 
-// Create a color scale
-var allContinent = d3.map(data, function(d){return(d.homecontinent)}).keys()
-var color = d3.scaleOrdinal()
-.domain(allContinent)
-.range(d3.schemePaired);
+  let mouseOver = function(d) {
+    d3.selectAll(".Country")
+      .transition()
+      .duration(200)
+      .style("opacity", .5)
+    d3.select(this)
+      .transition()
+      .duration(200)
+      .style("opacity", 1)
+      //.style("stroke", "black")
+  }
 
-// Add a scale for bubble size
-var valueExtent = d3.extent(data, function(d) { return +d.n; })
-var size = d3.scaleSqrt()
-.domain(valueExtent)  // What's in the data
-.range([ 1, 50])  // Size in pixel
+  let mouseLeave = function(d) {
+    d3.selectAll(".Country")
+      .transition()
+      .duration(200)
+      .style("opacity", .8)
+    d3.select(this)
+      .transition()
+      .duration(200)
+      //.style("stroke", "transparent")
+  }
 
-// Draw the map
-svg.append("g")
-  .selectAll("path")
-  .data(dataGeo.features)
-  .enter()
-  .append("path")
-    .attr("fill", "#b8b8b8")
-    .attr("d", d3.geoPath()
+  // Draw the map
+  svg1.append("g")
+    .selectAll("path")
+    .data(topo.features)
+    .enter()
+    .append("path")
+      // draw each country
+      .attr("d", d3.geoPath()
         .projection(projection)
-    )
-  .style("stroke", "none")
-  .style("opacity", .3)
-  
-// Add circles:
-svg
-.selectAll("myCircles")
-.data(data.sort(function(a,b) { return +b.n - +a.n }).filter(function(d,i){ return i<1000 }))
-.enter()
-.append("circle")
-  .attr("cx", function(d){ return projection([+d.homelon, +d.homelat])[0] })
-  .attr("cy", function(d){ return projection([+d.homelon, +d.homelat])[1] })
-  .attr("r", function(d){ return size(+d.n) })
-  .style("fill", function(d){ return color(d.homecontinent) })
-  .attr("stroke", function(d){ if(d.n>2000){return "black"}else{return "none"}  })
-  .attr("stroke-width", 1)
-  .attr("fill-opacity", .4)
-//  .on("mouseover", mouseover)
-//  .on("mousemove", mousemove)
-//  .on("mouseleave", mouseleave)
+      )
+      // set the color of each country
+      .attr("fill", function (d) {
+        d.total = mapdata.get(d.id) || 0;
+        return colorScale(d.total);
+      })
+      .style("stroke", "black")
+      .attr("class", function(d){ return "Country" } )
+      .style("opacity", .8)
+      .on("mouseover", mouseOver )
+      .on("mouseleave", mouseLeave )
+    
+    }
 
+    // update slider function
+  function hue(h) {
+    handle.attr("cx", xslider(h));
+    label
+      .attr("x", xslider(h))
+      .text(formatDate(h));
 
+    var newDate = formatDate(h);
+    // filter data set and redraw plot
+    var newData = datafile.filter(function(d) {
+      return d.date === newDate;
+    })
 
-// Add title and explanation
-svg
-.append("text")
-  .attr("text-anchor", "end")
-  .style("fill", "black")
-  .attr("x", width - 70)
-  .attr("y", height - 50)
-  .attr("width", 90)
-  .html("COVID-19")
-  .style("font-size", 14)
+    svg1.selectAll("path")
+    .data(newData)
+    .attr("fill", function (d) {
 
+      d.index_bin = d.stringency_index || 0;
+      return colorScale(d.index_bin);
+    });
 
-// --------------- //
-// ADD LEGEND //
-// --------------- //
+  }
 
-// Add legend: circles
-var valuesToShow = [100,4000,15000]
-var xCircle = 40
-var xLabel = 90
-svg
-.selectAll("legend")
-.data(valuesToShow)
-.enter()
-.append("circle")
-  .attr("cx", xCircle)
-  .attr("cy", function(d){ return height - size(d) } )
-  .attr("r", function(d){ return size(d) })
-  .style("fill", "none")
-  .attr("stroke", "black")
-
-// Add legend: segments
-svg
-.selectAll("legend")
-.data(valuesToShow)
-.enter()
-.append("line")
-  .attr('x1', function(d){ return xCircle + size(d) } )
-  .attr('x2', xLabel)
-  .attr('y1', function(d){ return height - size(d) } )
-  .attr('y2', function(d){ return height - size(d) } )
-  .attr('stroke', 'black')
-  .style('stroke-dasharray', ('2,2'))
-
-// Add legend: labels
-svg
-.selectAll("legend")
-.data(valuesToShow)
-.enter()
-.append("text")
-  .attr('x', xLabel)
-  .attr('y', function(d){ return height - size(d) } )
-  .text( function(d){ return d } )
-  .style("font-size", 10)
-  .attr('alignment-baseline', 'middle')
-}
+});
