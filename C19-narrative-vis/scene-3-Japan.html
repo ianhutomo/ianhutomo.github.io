@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Load d3.js and plugin -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <!--script src="https://d3js.org/d3-selection-multi.v1.min.js"></script-->
+
+    <title>Covid-19 Narrative Visualization</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+    /*
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      */
+      /*.axis--x */
+      .path { display: none; }
+      .line {
+          fill: none;
+          stroke: rgb(207, 44, 44);
+          stroke-width: 2;
+      }
+      /*
+      
+      .rectangle {
+        fill: steelblue;
+      }
+      .rectangle:hover {
+        fill: orange;
+      }
+      */
+      .axis {
+        font: 10px sans-serif;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+      .bar {
+      fill: steelblue;
+      }
+
+      .bar:hover {
+        fill: brown;
+      }
+
+      /*
+      .axis--x path {
+        display: none;
+      }
+      
+      svg {
+        position: absolute;
+        margin-top: 40px;
+      }
+      
+      select {
+        margin-left: 60px;
+      }
+      */
+
+    /*sliders*/
+    .ticks {
+      font-size: 11px;
+    }
+    .label{
+      font-size: 12px;
+    }
+    
+    .track,
+    .track-inset,
+    .track-overlay {
+      stroke-linecap: round;
+    }
+
+    .track {
+      stroke: #000;
+      stroke-opacity: 0.3;
+      stroke-width: 6px;
+    }
+
+    .track-inset {
+      stroke: #ddd;
+      stroke-width: 3px;
+    }
+
+    .track-overlay {
+      pointer-events: stroke;
+      stroke-width: 30px;
+      stroke: transparent;
+      /*cursor: crosshair;*/
+    }
+
+    .handle {
+      fill: #fff;
+      stroke: #000;
+      stroke-opacity: 0.5;
+      stroke-width: 1.25px;
+    }
+    .filter-3 {
+      visibility: hidden;
+    }
+
+    </style>
+    <!-- Custom styles for this template-->
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="blog.css" rel="stylesheet">
+
+</head>
+<body>
+
+  <div class="container">
+    <header class="blog-header py-3">
+        <div class="text-center">
+          <a class="blog-header-logo text-dark" href="#">Covid-19 Narrative Visualization</a>
+        </div>
+    </header>
+  
+    <div class="nav-scroller py-1 mb-2">
+      <nav class="nav d-flex justify-content-between">
+        <a class="p-2 text-muted" href="index.html">Stringency Index Map</a>
+        <a class="p-2 text-muted" href="scene-2.html">Key Countries Data</a>
+        <a class="p-2 text-muted" href="scene-3.html">Explore Countries Data</a>
+      </nav>
+    </div>
+  
+    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
+      <div class="px-0">
+        <h1 class="display-6 font-italic">How does lockdown measures correlate with new Covid-19 cases?</h1>
+        <p class="lead my-3">
+          This narrative visualization will explore Stringency Index correlation to new Covid-19 cases accross different country around the globe</p>
+        <!--p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p-->
+      </div>
+    </div>
+  </div>
+
+<main role="main" class="container">
+  <div class="row">
+    <div class="blog-main p-md-4">
+
+
+      <div class="blog-post">
+        <h3>Japan: Stringency Index and Covid-19 New Cases</h3>
+        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        <ul>
+          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
+          <li>Donec id elit non mi porta gravida at eget metus.</li>
+          <li>Nulla vitae elit libero, a pharetra augue.</li>
+        </ul>
+
+        <!-- Scene 3 Visualisation Script-->
+        <select class="filter-3" id="filter-3">
+          <option value="Japan"></option>
+        </select>
+        <svg id="scene-3" width="980" height="800"></svg>
+        <script src="scene-3.js"></script>
+        <script src="annotations-jap.js"></script>
+
+
+        <p>This narrative visualisation was build as a final project for CS498: Data Visualisation course, part of MCS-DS Graduate Studies at the University 
+          of Illinois at Urbana Champaign</p>
+        <p>Resources:</p>
+        <ul>
+          <li>Data on COVID-19 (coronavirus) by Our World in Data https://github.com/owid/covid-19-data/tree/master/public/data</li>
+          <li>CORONAVIRUS GOVERNMENT RESPONSE TRACKER https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker</li>
+        </ul>
+        <p>D3 Resources:</p>
+        <ul>
+          <li>Bar Chart with update https://bl.ocks.org/saraquigley/fff2204cde6fa769696ef143273560ec</li>
+          <li>CORONAVIRUS GOVERNMENT RESPONSE TRACKER https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker</li>
+        </ul>
+        <p>For feedbacks and questions, please contact the author at ahutomo2[at]illinois.edu</p>
+      </div><!-- /.blog-post -->
+
+      <nav class="blog-pagination">
+        <a class="btn btn-outline-primary" href="scene-3-India.html">Previous Scene: India Data</a>
+        <a class="btn btn-outline-primary" href="scene-3.html">Next Scene: Explore Countries Data</a>
+      </nav>
+
+    </div><!-- /.blog-main -->
+
+  </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+<footer class="blog-footer">
+  <p>For feedbacks and questions, please contact the author at ahutomo2[at]illinois.edu</p>
+  <p>
+    <a href="#">Back to top</a>
+  </p>
+</footer>
+
+</body>
+</html>

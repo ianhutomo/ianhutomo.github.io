@@ -65,7 +65,11 @@ d3.csv("./owid-covid-data.csv", function(data) {
   svg2
     .append("g")
     .attr("transform", "translate(0," + height2 + ")")
-    .call(d3.axisBottom(x).ticks(3));
+    .call(d3.axisBottom(x).ticks(3))
+    .selectAll("text")
+        .style("visibility","hidden")
+    .selectAll("line")
+    .style("visibility","hidden");
 
   //Add Y axis
   var y = d3.scaleLinear()

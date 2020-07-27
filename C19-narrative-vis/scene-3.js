@@ -47,15 +47,19 @@ y1.domain([0,100]);
 
 // X axis
 g.append("g")
-  //.attr("class", "axis axis--x")
+  .attr("id", "x-axis")
+  .attr("class", "axis axis--x")
   .attr("transform", "translate(0," + height3 + ")")
   //.call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b-%d")))
-  .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b-%d")))
-  .selectAll("text")	
+  .call(d3.axisBottom(x).ticks(d3.timeDay.every(5)).tickFormat(d3.timeFormat("%b %d")))
+  .selectAll("text")
+        //.style("visibility","hidden")	
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
         .attr("transform", "rotate(-65)");;
+
+//g.select("x-axis").selectAll(".tick:nth-child(7)").style("visibility","visible");
 
 //Y axis
 g.append("g")

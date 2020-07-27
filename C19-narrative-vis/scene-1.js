@@ -88,8 +88,8 @@ var projection = d3.geoMercator()
   .translate([width1 / 2, height1 / 2]);
 
 var colorScale = d3.scaleThreshold()
-  .domain([10,20,30,40,50,60,70,80,90])
-  .range(d3.schemeReds[9]);
+  .domain([20,30.40,50,60,70,80,90])
+  .range(d3.schemeYlOrRd[8]);
 
 // Load external data and boot
 d3.queue()
