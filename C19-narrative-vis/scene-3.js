@@ -1,126 +1,141 @@
-/*
-var dataset = [
-    ['Sapporo', 703, 1902],
-    ['Shimizu', 1473, 3341],
-    ['Matsumoto', 863, 1935],
-    ['C Osaka', 1494, 3008],
-    ['Kyoto',965,1743],
-    ['Okayama',568,1271],
-    ['Machida', 189, 626],
-    ['Yokohama FC', 464, 1064],
-    ['Tokushima', 731, 1443],
-    ['Ehime', 306, 630],
-    ['Chiba',899, 2556],
-    ['Yamaguchi', 231, 880],
-    ['Mito', 262, 589],
-    ['Yamagata', 429, 1497],
-    ['Nagasaki', 322, 749],
-    ['Kumamoto', 315, 720],
-    ['Gunma', 228, 522],
-    ['Tokyo V',436, 1391],
-    ['Sanuki', 287, 613],
-    ['Gifu', 419,932],
-    ['Kanazawa',296,612],
-    ['Kitakyushu', 343,855]
-  ];
-*/
 
-//const dataset =  await d3.csv('./owid-covid-data-us.csv');
+var svg3 = d3.select("#scene-3"),
+margin3 = {top: 20, right: 30, bottom: 70, left: 40},
+width3 = +svg3.attr("width") - margin3.left - margin3.right,
+height3 = +svg3.attr("height") - margin3.top - margin3.bottom;
 
-const parseDateTime = d3.timeParse('%d-%m-%Y');
+var x = d3.scaleBand().rangeRound([0, width3]).padding(0.3),
+//y = d3.scaleLog().base(10).range([height3,0]),
+y = d3.scaleLinear().rangeRound([height3,0]);
+y1 = d3.scaleLinear().rangeRound([height3,0]);
 
-d3.csv('./owid-covid-data-us.csv')
-  .row((data) => {
+var g = svg3.append("g")
+.attr("transform", "translate(" + margin3.left + "," + margin3.top + ")");
 
-    const minDate = d3.min(data, (d) => { return d.date; });
-    const maxDate = d3.max(data, (d) => { return d.date; });
+// create a variable that will hold the loaded data
+var csv;
 
-    return {
-      date: parseDateTime(data.date),
-    }
-  })
+// load the data
+var parseTime = d3.timeParse("%m/%e/%Y");
 
-var margin3 = {top: 20, right: 20, bottom: 30, left: 40},
-    width3 = 960,
-    height3 = 360;
+d3.csv("owid-covid-data.csv", function(d) {
+        d.new_cases = +d.new_cases;
+        d.date = parseTime(d.date);
+        d.stringency_index = +d.stringency_index;
+        d.total_cases = +d.total_cases;
+return d;
+}, function(error, datafile) {
+if (error) throw error;
 
-var xScale = d3.scaleTime()
-            .rangeRound([0, width3])
-            .padding(0.1)
-            //.domain(dataset.map(function(d) {return d['date'];}));
-            .domain([minDate,maxDate]);
-    yScale = d3.scaleLinear()
-            .rangeRound([height3, 0])
-            .domain([0, d3.max(dataset, (function (d) {
-                return d['new_cases'];
-            }))]);
+// put the original data in csv
+csv = datafile;
 
-var svg3 = d3.select("#scene-3")
-        .append("svg")
-        .data(dataset)
-        .attr("width", width3 + margin3.left + margin3.right)
-        .attr("height", height3 + margin3.top + margin3.bottom);
-
-var gr = svg3.append("g")
-        .attr("transform", "translate(" + margin3.left + "," + margin3.top + ")");
-
-// axis-x
-gr.append("g")
-    .attr("class", "axis axis--x")
-    .attr("transform", "translate(0," + height3 + ")")
-    .call(d3.axisBottom(xScale));
-
-// axis-y
-gr.append("g")
-    .attr("class", "axis axis--y")
-    .call(d3.axisLeft(yScale));
-
-var bar = gr.selectAll("rect")
-.data(dataset)
-.enter().append("g");
-
-// bar chart
-bar.append("rect")
-.attr("x", function(d) { return xScale(d['date']); })
-.attr("y", function(d) { return yScale(d['new_cases']);})
-.attr("width", xScale.bandwidth())
-.attr("height", function(d) { return height3 - yScale(d['stringency_index']); })
-/*.attr("class", function(d) {
-    var s = "bar ";
-    if (d[2] < 400) {
-    return s + "bar1";
-    } else if (d[2] < 800) {
-    return s + "bar2";
-    } else {
-    return s + "bar3";
-    }*/
-//});
-
-// labels on the bar chart
-bar.append("text")
-.attr("dy", "1.3em")
-.attr("x", function(d) { return xScale(d['date']) + xScale.bandwidth() / 2; })
-.attr("y", function(d) { return yScale(d['new_cases']); })
-.attr("text-anchor", "middle")
-.attr("font-family", "sans-serif")
-.attr("font-size", "11px")
-.attr("fill", "black")
-.text(function(d) {
-    return d['stringency_index'];
+// filter the data based on the inital value
+var data = csv.filter(function(d) { 
+var sq = d3.select("#filter-3").property("value");
+return d.location === sq;
 });
+
+var startDate = new Date("2020-02-01"),
+    endDate = new Date("2020-06-30");
+
+// set the domains of the axes
+x.domain(data.map(function(d) { return d.date; }));
+y.domain([0, d3.max(data, function(d) { return d.new_cases; })]);
+y1.domain([0,100]);
+//z.domain([0, d3.max(data, function(d) { return d.stringency_index;})]);
+
+// X axis
+g.append("g")
+  //.attr("class", "axis axis--x")
+  .attr("transform", "translate(0," + height3 + ")")
+  //.call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b-%d")))
+  .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%b-%d")))
+  .selectAll("text")	
+        .style("text-anchor", "end")
+        .attr("dx", "-.8em")
+        .attr("dy", ".15em")
+        .attr("transform", "rotate(-65)");;
+
+//Y axis
+g.append("g")
+  .attr("class", "axis axis--y")
+  .attr("id", "y-axis")
+  .call(d3.axisLeft(y))
+//.append("text")
+//  .attr("transform", "rotate(-90)")
+//  .attr("y", 6)
+//  .attr("dy", "0.71em")
+// .attr("text-anchor", "end")
+//  .text("new_cases");
+
+//Y axis Right 
+g.append("g")
+  .attr("class", "axis axis--y1")
+  .attr("transform", "translate("+ width3+",0)")
+  .attr("id", "y1-axis")
+  .call(d3.axisRight(y1))
+
+// create the bars
+g.selectAll(".bar")
+.data(data)
+.enter().append("rect")
+  .attr("class", "bar")
+  .attr("x", function(d) { return x(d.date); })
+  .attr("y", function(d) { return y(d.new_cases); })
+  .attr("width", x.bandwidth())
+  .attr("height", function(d) { return height3 - y(d.new_cases); });
+
 
 // line chart
 var line = d3.line()
-    .x(function(d, i) { return xScale(d['date']) + xScale.bandwidth() / 2; })
-    .y(function(d) { return yScale(d['stringency_index']); })
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y1(d.stringency_index); })
 //    .curve(d3.curveMonotoneX);
 
-bar.append("path")
-.attr("class", "line") // Assign a class for styling
-.attr("d", line(dataset)); // 11. Calls the line generator
+g.append("path")
+    .attr("class", "line") // Assign a class for styling
+    .attr("id", "si_line")
+    .attr("d", line(data)); //Calls the line generator
 
- // bar.append("circle") // Uses the enter().append() method
- //     .attr("class", "dot") // Assign a class for styling
- //     .attr("cx", function(d, i) { return xScale(d[0]) + xScale.bandwidth() / 2; })
- //     .attr("cy", function(d) { return yScale(d[1]); })
- //     .attr("r", 5);
+////////////////////
+// add a change event handler
+////////////////////
+
+d3.select("#filter-3").on("change", function() {
+  applyFilter(this.value);
+});
+
+// call this whenever the filter changes
+function applyFilter(value) {
+// filter the data
+var data = csv.filter(function(d) {return d.location === value;})
+console.log(data);
+x.domain(data.map(function(d) { return d.date; }));
+y.domain([0, d3.max(data, function(d) { return d.new_cases; })]);
+
+g.select("#y-axis")
+  //.attr("class", "axis axis--y")
+  .transition().duration(1000)
+  .call(d3.axisLeft(y))
+
+// update the bars
+d3.selectAll(".bar")
+  .data(data)
+  .transition().duration(1000)
+  .attr("x", function(d) { return x(d.date); })
+  .attr("y", function(d) { return y(d.new_cases); })
+  .attr("height", function(d) { return height3 - y(d.new_cases); });
+
+// line chart
+line = d3.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y1(d.stringency_index); })
+
+g.select("#si_line")
+    .attr("class", "line") // Assign a class for styling
+    .transition().duration(1000)
+    .attr("d", line(data)); // Calls the line generator
+}
+
+});

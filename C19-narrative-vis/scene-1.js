@@ -1,5 +1,6 @@
 //var formatDateIntoYear = d3.timeFormat("%b-%d");
 var formatDate = d3.timeFormat("%b-%d");
+var parseTime = d3.timeParse("%m/%e/%Y");
 
 var startDate = new Date("2020-02-01"),
     endDate = new Date("2020-06-30"),

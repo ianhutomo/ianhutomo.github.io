@@ -10,6 +10,7 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <!--script src="https://d3js.org/d3-selection-multi.v1.min.js"></script-->
 
     <title>Covid-19 Narrative Visualization</title>
@@ -121,6 +122,9 @@
       stroke-opacity: 0.5;
       stroke-width: 1.25px;
     }
+    .filter-3 {
+      visibility: hidden;
+    }
 
     </style>
     <!-- Custom styles for this template-->
@@ -162,7 +166,7 @@
 
 
       <div class="blog-post">
-        <h3>Stringency Index and Covid-19 New Cases</h3>
+        <h3>India: Stringency Index and Covid-19 New Cases</h3>
         <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <ul>
           <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
@@ -171,21 +175,12 @@
         </ul>
 
         <!-- Scene 3 Visualisation Script-->
-        <p>
-        <select id="filter-3">
-            <option value="United States">United States</option>
-            <option value="Japan">Japan</option>
-            <option value="New Zealand">New Zealand</option>
-            <option value="Afghanistan">Afghanistan</option>
-            <option value="Indonesia">Indonesia</option>
-            <option value="Singapore">Singapore</option>
-            <option value="India">India</option>
-            <option value="Australia">Australia</option>
-            <option value="Italy">Italy</option>
+        <select class="filter-3" id="filter-3">
+          <option value="India"></option>
         </select>
-        </p>
-        <svg id="scene-3" text-anchor="end" width="960" height="640"></svg>
+        <svg id="scene-3" width="960" height="640"></svg>
         <script src="scene-3.js"></script>
+        <script src="Annotations.js"></script>
 
 
         <p>This narrative visualisation was build as a final project for CS498: Data Visualisation course, part of MCS-DS Graduate Studies at the University 
