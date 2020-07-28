@@ -4,7 +4,7 @@ const annotations = [
         label: "Stringency Index are increasing gradually",
         title: "Lockdown Measures Started to be Applied."
       },
-      x: 320,
+      x: 280,
       y: 470,
       dy: -80,
       dx: -90
@@ -14,7 +14,7 @@ const annotations = [
         label: "Lockdown measures seems to correlate with decrease in daily new cases",
         title: "Decrease in Daily New Cases"
       },
-      x: 450,
+      x: 385,
       y: 610,
       dy: -70,
       dx: 70
@@ -31,7 +31,7 @@ const annotations = [
       subject: {
         radius: 50
       },
-      x: 900,
+      x: 760,
       y: 680,
       dy: -50,
       dx: -60

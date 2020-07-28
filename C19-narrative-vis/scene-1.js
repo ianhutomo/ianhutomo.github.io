@@ -148,6 +148,30 @@ function ready(error, topo) {
     
     }
 
+  var linear = d3.scaleLinear()
+    .domain([0,100])
+    .range(["rgb(255,255,204)", "rgb(128,0,38)"]);
+  
+  svg1.append("g")
+    .attr("class", "legendLinear")
+    .attr("transform", "translate(470,490)");
+
+  svg1.append("text")
+  .attr("class", "legendLinear")
+  .attr("x", 590).attr("y",475)
+  .text("Stringency Index Scale")
+  .style("font-size", "14px")
+  .attr("alignment-baseline","middle");
+  
+  var legendLinear = d3.legendColor()
+    .shapeWidth(35)
+    .cells(10)
+    .orient('horizontal')
+    .scale(linear);
+  
+  svg1.select(".legendLinear")
+    .call(legendLinear);
+
     // update slider function
   function hue(h) {
     handle.attr("cx", xslider(h));

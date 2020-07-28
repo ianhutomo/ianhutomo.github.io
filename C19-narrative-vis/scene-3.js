@@ -1,6 +1,6 @@
 
 var svg3 = d3.select("#scene-3"),
-margin3 = {top: 20, right: 30, bottom: 70, left: 40},
+margin3 = {top: 20, right: 20, bottom: 70, left: 40},
 width3 = +svg3.attr("width") - margin3.left - margin3.right,
 height3 = +svg3.attr("height") - margin3.top - margin3.bottom;
 
@@ -36,9 +36,6 @@ var sq = d3.select("#filter-3").property("value");
 return d.location === sq;
 });
 
-var startDate = new Date("2020-02-01"),
-    endDate = new Date("2020-06-30");
-
 // set the domains of the axes
 x.domain(data.map(function(d) { return d.date; }));
 y.domain([0, d3.max(data, function(d) { return d.new_cases; })]);
@@ -57,6 +54,7 @@ g.append("g")
         .style("text-anchor", "end")
         .attr("dx", "-.8em")
         .attr("dy", ".15em")
+        .style("font-size", "6px")
         .attr("transform", "rotate(-65)");;
 
 //g.select("x-axis").selectAll(".tick:nth-child(7)").style("visibility","visible");
@@ -80,6 +78,27 @@ g.append("g")
   .attr("id", "y1-axis")
   .call(d3.axisRight(y1))
 
+
+g.append("text")
+    .attr("transform", "translate(" + (width3/2) + " ," +(height3 + margin3.top + 35) + ")")
+    .style("text-anchor", "middle")
+    .style("font-size", "13px")
+    .text("Date");
+
+g.append("text")
+    .attr("transform", "translate(10,15)")
+    //.attr("transform", "rotate(-90)")
+    //.attr("y",0-margin3.left-5 )
+    //.attr("x",0 - (height3 / 2))
+    //.attr("dy", "1em").style("text-anchor", "middle")
+    .style("font-size", "13px")
+    .text("<- New Covid 19 Cases");
+
+g.append("text")
+    .attr("transform", "translate(650,15)")
+    .style("font-size", "13px")
+    .text("Stringency Index ->");
+
 // create the bars
 g.selectAll(".bar")
 .data(data)
@@ -101,6 +120,15 @@ g.append("path")
     .attr("class", "line") // Assign a class for styling
     .attr("id", "si_line")
     .attr("d", line(data)); //Calls the line generator
+
+//g.append("text").attr("x", 200).attr("y",200).text("Stringency Index").attr("transform", "rotate(90)").style("font-size", "12px").style("text-anchor", "middle");
+//legends
+g.append("rect").attr("class","legend").attr("x", 100).attr("y",50).attr("width",30).attr("height",2).style("fill","rgb(207, 44, 44)");
+g.append("rect").attr("class","legend").attr("x", 120).attr("y",65).attr("width",10).attr("height",10).style("fill","steelblue");
+g.append("text").attr("class","legend").attr("x", 135).attr("y",50).text("Stringency Index").style("font-size", "12px").attr("alignment-baseline","middle");
+g.append("text").attr("class","legend").attr("x", 135).attr("y",70).text("New Covid-19 Cases").style("font-size", "12px").attr("alignment-baseline","middle");
+//g.append("rect").attr("class","legend").attr("x", 90).attr("y",40).attr("width",150).attr("height",50).style("background-color","transparent").style("border","1px solid black");
+g.selectAll(".legend").attr("transform", "translate(-50,0)")
 
 ////////////////////
 // add a change event handler
