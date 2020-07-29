@@ -9,10 +9,14 @@ the original stringency index records the strictness of ‘lockdown style’ pol
 
 Note that these indices simply record the number and strictness of government policies, and should not be interpreted as ‘scoring’ the appropriateness or effectiveness of a country’s response. A higher position in an index does not necessarily mean that a country's response is ‘better’ than others lower on the index.
 
+Wall Street Journal: Measuring the Strictness of Your Lockdown: A University Boils It Down to One Number https://www.wsj.com/articles/measuring-the-strictness-of-your-lockdown-a-university-boils-it-down-to-one-number-11590246001
+
 ### Data Source
 Collection of the COVID-19 data maintained by Our World in Data. Data is updated daily and includes data on confirmed cases, deaths, and testing, as well as other variables of potential interest, in this narrative, we take a look at stringency index.
 
 ## Scene-1: World Stringency Index Data
+
+Bloomberg Why Acting Fast Is the Key to Beating a Second Wave of Covid-19: https://www.bloomberg.com/graphics/2020-swift-covid-19-lockdowns-more-effective/
 
 ## Scene-2: Stringency Index and New COVID-19 Cases
 
@@ -30,6 +34,20 @@ India
 
 ## Scene-3: World Stringency Index and New COVID-19 Cases Data
 
+India
+The Guardian: India had one of the world's strictest lockdowns. Why are cases still rising? https://www.theguardian.com/commentisfree/2020/jul/04/india-lockdowns-cases-rising-
+Hindustan Times: Coronavirus update: India’s nationwide lockdown move to contain Covid-19 spread quicker than most nations, shows study https://www.hindustantimes.com/india-news/india-s-nationwide-lockdown-move-to-contain-covid-19-spread-quicker-than-most-nations-study/story-0X4nUF6rhaNTcsH07k3P2H.html
+
+Australia
+ABC News Australia: How does Melbourne's coronavirus lockdown compare with overseas responses to community transmission? https://www.abc.net.au/news/2020-07-10/coronavirus-victoria-what-australia-learned-about-lockdowns/12429484
+Vox: Australia was a coronavirus success story. Now, an outbreak is prompting new lockdowns. https://www.vox.com/2020/7/10/21317918/australia-melbourne-victoria-coronavirus-covid-19-lockdown
+
+Japan
+The Conversation: Coronavirus in Japan: why is the infection rate relatively low? https://theconversation.com/coronavirus-in-japan-why-is-the-infection-rate-relatively-low-133648
+BBC: Coronavirus: Japan's mysteriously low virus death rate https://www.bbc.com/news/world-asia-53188847
+Bloomberg: Japan Dodged Surge in Total Fatalities During Peak Virus Month
+WSJ:How Japan Beat Coronavirus Without Lockdowns https://www.wsj.com/articles/how-japan-beat-coronavirus-without-lockdowns-11594163172
+
 ## About Narrative Visualisation
 
 This narrative visualisation was build as a final project for CS498: Data Visualisation course at the
@@ -40,4 +58,5 @@ Resources:
 
 D3 resources:
 - Bar Chart with update https://bl.ocks.org/saraquigley/fff2204cde6fa769696ef143273560ec
+- Most basic choropleth map in d3.js https://www.d3-graph-gallery.com/graph/choropleth_basic.html
 
