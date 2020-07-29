@@ -1,7 +1,7 @@
 const annotations = [
     {
       note: {
-        label: "Japan strinency index appear to be relatively low and steady over time",
+        label: "Japan stringency index appear to be relatively low and steady over time",
         title: "No Drastic Changes in Lockdown Measures"
       },
       x: 200,
@@ -30,7 +30,7 @@ const annotations = [
       //settings for the subject, in this case the circle radius
       subject: {
         width: -170,
-        height: 300
+        height: 370
       },
       x: 500,
       y: 15,

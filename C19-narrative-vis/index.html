@@ -11,7 +11,6 @@
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
-    
     <!--script src="https://d3js.org/d3-selection-multi.v1.min.js"></script-->
 
     <title>Covid-19 Narrative Visualization</title>
@@ -20,38 +19,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
-    /*
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      */
-      /*.axis--x */
       .path { display: none; }
       .line {
           fill: none;
           stroke: rgb(207, 44, 44);
           stroke-width: 2;
       }
-      /*
-      
-      .rectangle {
-        fill: steelblue;
-      }
-      .rectangle:hover {
-        fill: orange;
-      }
-      */
       .axis {
         font: 10px sans-serif;
       }
@@ -69,21 +42,6 @@
       .bar:hover {
         fill: brown;
       }
-
-      /*
-      .axis--x path {
-        display: none;
-      }
-      
-      svg {
-        position: absolute;
-        margin-top: 40px;
-      }
-      
-      select {
-        margin-left: 60px;
-      }
-      */
 
     /*sliders*/
     .ticks {
@@ -144,6 +102,9 @@
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="index.html">Stringency Index Map</a>
         <a class="p-2 text-muted" href="scene-2.html">Key Countries Data</a>
+        <a class="p-2 text-muted" href="scene-3.html">Australia Data</a>
+        <a class="p-2 text-muted" href="scene-3-Australia.html">India Data</a>
+        <a class="p-2 text-muted" href="scene-3-India.html">Japan Data</a>
         <a class="p-2 text-muted" href="scene-3.html">Explore Countries Data</a>
       </nav>
     </div>
@@ -170,11 +131,6 @@
         <p>The <strong>Oxford COVID-19 Government Response Tracker (OxCGRT) </strong> systematically collects information on several different common policy responses that governments 
           have taken to respond to the pandemic on 17 indicators such as school closures and travel restrictions. It now has data from more than 160 countries. </p>
 
-        <p>The original stringency index records the strictness of ‘lockdown style’ policies that primarily restrict people’s behaviour. Later, the index also 
-          includes an overall government response index, which records how the response of governments has varied over all indicators in the database, becoming 
-          stronger or weaker over the course of the outbreak. The index also measures containment and health index which combines ‘lockdown’ restrictions and 
-          closures with measures such as testing policy and contact tracing, short term investment in healthcare, as well investments in vaccine. </p>
-
         <div class="p-4 mb-3 bg-light rounded">
         <p class="font-italic"> <Strong>Notes</Strong></p>
           <p>These indices simply record the number and strictness of government policies, and should not be interpreted as ‘scoring’ the appropriateness 
@@ -191,7 +147,11 @@
         <svg id="scene-1" width="960" height="600"></svg>
         <script src="scene-1.js"></script>
 
-        <p>This scene explores the progression of stringency index around the world, over time</p>
+        <p></p>
+        <p>This scene explores the progression of stringency index around the world, over time. The original stringency index records the strictness of ‘lockdown style’ policies that primarily restrict people’s behaviour. Later, the index also 
+          includes an overall government response index, which records how the response of governments has varied over all indicators in the database, becoming 
+          stronger or weaker over the course of the outbreak. The index also measures containment and health index which combines ‘lockdown’ restrictions and 
+          closures with measures such as testing policy and contact tracing, short term investment in healthcare, as well investments in vaccine.</p>
 
         <h6> Data Source</h6>
         <p>Collection of the COVID-19 data maintained by Our World in Data. Data is updated daily and includes data on confirmed cases, deaths, and testing, as 

@@ -6,16 +6,27 @@ var margin2 = {top: 30, right: 0, bottom: 30, left: 50},
 var keyCountry = 
     ['United States',
     'Brazil',
+    'Chile',
+    'Honduras',
     'United Kingdom',
     'Italy',
+    'Sweden',
     'China',
     'Japan',
     'South Korea',
     'Singapore',
     'India',
-    'Indonesia',
+    'Qatar',
     'Australia',
     'New Zealand'];
+
+var TopCasesPerMil = 
+    ['Qatar',
+    'San Marino',
+    'Vatican',
+    'Andorra',
+    'Bahrain',
+    'Chile'];
 
 //Read the data
 //d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/5_OneCatSevNumOrdered.csv", function(data) {

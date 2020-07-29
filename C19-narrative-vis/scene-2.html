@@ -8,9 +8,6 @@
 
     <!-- Load d3.js and plugin -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <!--script src="https://d3js.org/d3-selection-multi.v1.min.js"></script-->
 
     <title>Covid-19 Narrative Visualization</title>
 
@@ -18,22 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
-    /*
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      */
       /*.axis--x */
       .path { display: none; }
       .line {
@@ -41,15 +23,6 @@
           stroke: rgb(207, 44, 44);
           stroke-width: 2;
       }
-      /*
-      
-      .rectangle {
-        fill: steelblue;
-      }
-      .rectangle:hover {
-        fill: orange;
-      }
-      */
       .axis {
         font: 10px sans-serif;
       }
@@ -67,22 +40,6 @@
       .bar:hover {
         fill: brown;
       }
-
-      /*
-      .axis--x path {
-        display: none;
-      }
-      
-      svg {
-        position: absolute;
-        margin-top: 40px;
-      }
-      
-      select {
-        margin-left: 60px;
-      }
-      */
-
     /*sliders*/
     .ticks {
       font-size: 11px;
@@ -142,17 +99,11 @@
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="index.html">Stringency Index Map</a>
         <a class="p-2 text-muted" href="scene-2.html">Key Countries Data</a>
+        <a class="p-2 text-muted" href="scene-3.html">Australia Data</a>
+        <a class="p-2 text-muted" href="scene-3-Australia.html">India Data</a>
+        <a class="p-2 text-muted" href="scene-3-India.html">Japan Data</a>
         <a class="p-2 text-muted" href="scene-3.html">Explore Countries Data</a>
       </nav>
-    </div>
-  
-    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
-      <div class="px-0">
-        <h1 class="display-6 font-italic">How does lockdown measures correlate with new Covid-19 cases?</h1>
-        <p class="lead my-3">
-          This narrative visualization will explore Stringency Index correlation to new Covid-19 cases accross different country around the globe</p>
-        <!--p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p-->
-      </div>
     </div>
   </div>
 
@@ -162,15 +113,26 @@
 
 
       <div class="blog-post">
-        
         <h3>Key Countries Stringency Index</h3>
-        <p>This scene is to explore the difference between country governments in responding to COVID-19 Cases. There are 9 countries picked by the author, to 
-          visualize the difference of the stringency index over time.</p>
+        <p>This scene is to explore the difference between country governments in responding to COVID-19 Cases. The red lines represents changes in stringency index over the course of 
+          February to June 2020. </p>
+          <p>An increase in the line indicates government takes stricter lockdown approach, <i>vice versa</i>.  The inclines also shows how drastic the changes made over time. There 
+            are 15 countries picked by the author, to visualize the difference of the stringency index over time.</p>
         
         <!--Scene 2 Visualisation Script-->
         <div id="scene-2"></div>
         <script src="scene-2.js"></script>
         
+        <p>As we may observe, each countries has different approach in responding to the pandemic. There are some general pattern we may observe from this visualisations:</p>
+        <ul>
+          <li> Countries that takes a gradual increase of lockdown, as represented by Singapore and South Korea. </li>
+          <li> Countries that takes a drastic approach to lockdown, which may indicates sudden lockdown as indicated in Italy, India and Honduras. </li>
+          <li> Some countries takes lighter approach to lockdown, such as Japan and Sweden.</li>
+          <li> There's also some pattern where lockdown was gradually reduced as indicated in Australia and New Zealand.</li>
+        </ul>
+
+        <p>We will take a look closely at some countries, namely <strong>Australia</strong>, <strong>India</strong>, and <strong>Japan</strong> and observe the new cases reported daily and its correlation to this Stringency Index</p>
+
       </div><!-- /.blog-post -->
 
       <nav class="blog-pagination">

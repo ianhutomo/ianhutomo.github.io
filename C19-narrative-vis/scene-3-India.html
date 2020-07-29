@@ -8,8 +8,6 @@
 
     <!-- Load d3.js and plugin -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <!--script src="https://d3js.org/d3-selection-multi.v1.min.js"></script-->
 
@@ -19,22 +17,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
-    /*
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-      */
       /*.axis--x */
       .path { display: none; }
       .line {
@@ -42,15 +24,6 @@
           stroke: rgb(207, 44, 44);
           stroke-width: 2;
       }
-      /*
-      
-      .rectangle {
-        fill: steelblue;
-      }
-      .rectangle:hover {
-        fill: orange;
-      }
-      */
       .axis {
         font: 10px sans-serif;
       }
@@ -68,22 +41,6 @@
       .bar:hover {
         fill: brown;
       }
-
-      /*
-      .axis--x path {
-        display: none;
-      }
-      
-      svg {
-        position: absolute;
-        margin-top: 40px;
-      }
-      
-      select {
-        margin-left: 60px;
-      }
-      */
-
     /*sliders*/
     .ticks {
       font-size: 11px;
@@ -146,18 +103,13 @@
       <nav class="nav d-flex justify-content-between">
         <a class="p-2 text-muted" href="index.html">Stringency Index Map</a>
         <a class="p-2 text-muted" href="scene-2.html">Key Countries Data</a>
+        <a class="p-2 text-muted" href="scene-3.html">Australia Data</a>
+        <a class="p-2 text-muted" href="scene-3-Australia.html">India Data</a>
+        <a class="p-2 text-muted" href="scene-3-India.html">Japan Data</a>
         <a class="p-2 text-muted" href="scene-3.html">Explore Countries Data</a>
       </nav>
     </div>
-  
-    <div class="jumbotron p-4 p-md-5 text-white rounded bg-dark">
-      <div class="px-0">
-        <h1 class="display-6 font-italic">How does lockdown measures correlate with new Covid-19 cases?</h1>
-        <p class="lead my-3">
-          This narrative visualization will explore Stringency Index correlation to new Covid-19 cases accross different country around the globe</p>
-        <!--p class="lead mb-0"><a href="#" class="text-white font-weight-bold">Continue reading...</a></p-->
-      </div>
-    </div>
+
   </div>
 
 <main role="main" class="container">
@@ -167,12 +119,10 @@
 
       <div class="blog-post">
         <h3>India: Stringency Index and Covid-19 New Cases</h3>
-        <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <ul>
-          <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-          <li>Donec id elit non mi porta gravida at eget metus.</li>
-          <li>Nulla vitae elit libero, a pharetra augue.</li>
-        </ul>
+        <p>In India, we observe drastic response to COVID-19 outbreak, as seen by the steep increase in stringency index to almost full lockdown or 
+          100 in the index scale. However, new COVID-19 cases is increasing at nearly exponential level over the course of end of March until end of June, with
+          almost 20,000 cases recorded daily.
+        </p>
 
         <!-- Scene 3 Visualisation Script-->
         <select class="filter-3" id="filter-3">
@@ -182,20 +132,12 @@
         <script src="scene-3.js"></script>
         <script src="scripts/annotations-ind.js"></script>
 
+        <p>News Resources:</p>
+        <ul>
+          <li><em>The Guardian</em>: <a href="https://www.theguardian.com/commentisfree/2020/jul/04/india-lockdowns-cases-rising-">India had one of the world's strictest lockdowns. Why are cases still rising?</a></li>
+          <li><em>Hindustan Times</em>: <a href="https://www.hindustantimes.com/india-news/india-s-nationwide-lockdown-move-to-contain-covid-19-spread-quicker-than-most-nations-study/story-0X4nUF6rhaNTcsH07k3P2H.html">Coronavirus update: India’s nationwide lockdown move to contain Covid-19 spread quicker than most nations, shows study </a></li>
+        </ul>
 
-        <p>This narrative visualisation was build as a final project for CS498: Data Visualisation course, part of MCS-DS Graduate Studies at the University 
-          of Illinois at Urbana Champaign</p>
-        <p>Resources:</p>
-        <ul>
-          <li>Data on COVID-19 (coronavirus) by Our World in Data https://github.com/owid/covid-19-data/tree/master/public/data</li>
-          <li>CORONAVIRUS GOVERNMENT RESPONSE TRACKER https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker</li>
-        </ul>
-        <p>D3 Resources:</p>
-        <ul>
-          <li>Bar Chart with update https://bl.ocks.org/saraquigley/fff2204cde6fa769696ef143273560ec</li>
-          <li>CORONAVIRUS GOVERNMENT RESPONSE TRACKER https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker</li>
-        </ul>
-        <p>For feedbacks and questions, please contact the author at ahutomo2[at]illinois.edu</p>
       </div><!-- /.blog-post -->
 
       <nav class="blog-pagination">

@@ -1,10 +1,11 @@
 
 var svg3 = d3.select("#scene-3"),
-margin3 = {top: 20, right: 20, bottom: 70, left: 40},
+margin3 = {top: 20, right: 25, bottom: 70, left: 40},
 width3 = +svg3.attr("width") - margin3.left - margin3.right,
 height3 = +svg3.attr("height") - margin3.top - margin3.bottom;
 
 var x = d3.scaleBand().rangeRound([0, width3]).padding(0.3),
+//var x = d3.scaleTime().rangeRound([0, width3]),
 //y = d3.scaleLog().base(10).range([height3,0]),
 y = d3.scaleLinear().rangeRound([height3,0]);
 y1 = d3.scaleLinear().rangeRound([height3,0]);
@@ -36,8 +37,11 @@ var sq = d3.select("#filter-3").property("value");
 return d.location === sq;
 });
 
+var barcount = Object.keys(data).length;
+
 // set the domains of the axes
 x.domain(data.map(function(d) { return d.date; }));
+//x.domain([new Date(2020,2,1),new Date(2020,6,30)]);
 y.domain([0, d3.max(data, function(d) { return d.new_cases; })]);
 y1.domain([0,100]);
 //z.domain([0, d3.max(data, function(d) { return d.stringency_index;})]);
@@ -106,6 +110,7 @@ g.selectAll(".bar")
   .attr("class", "bar")
   .attr("x", function(d) { return x(d.date); })
   .attr("y", function(d) { return y(d.new_cases); })
+  //.attr("width",4)
   .attr("width", x.bandwidth())
   .attr("height", function(d) { return height3 - y(d.new_cases); });
 
@@ -142,8 +147,10 @@ d3.select("#filter-3").on("change", function() {
 function applyFilter(value) {
 // filter the data
 var data = csv.filter(function(d) {return d.location === value;})
+
 console.log(data);
-x.domain(data.map(function(d) { return d.date; }));
+
+//x.domain(data.map(function(d) {return d.date; }));
 y.domain([0, d3.max(data, function(d) { return d.new_cases; })]);
 
 g.select("#y-axis")
@@ -151,12 +158,22 @@ g.select("#y-axis")
   .transition().duration(1000)
   .call(d3.axisLeft(y))
 
+//remove bars
+if (Object.keys(data).length < barcount) {
+//d3.selectAll(".bar").exit().remove();
+}
+//barcount = Object.keys(data).length;
+//console.log(barcount);
+
 // update the bars
-d3.selectAll(".bar")
+g.selectAll(".bar")
   .data(data)
+  //.enter().append("rect")
+  //.attr("class", "bar")
   .transition().duration(1000)
   .attr("x", function(d) { return x(d.date); })
   .attr("y", function(d) { return y(d.new_cases); })
+  .attr("width", x.bandwidth())
   .attr("height", function(d) { return height3 - y(d.new_cases); });
 
 // line chart
