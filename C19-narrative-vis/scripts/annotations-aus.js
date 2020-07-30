@@ -1,49 +1,45 @@
-const annotations = [
-    {
-      note: {
-        label: "Stringency Index are increasing gradually",
-        title: "Lockdown Measures Started to be Applied."
-      },
-      x: 280,
-      y: 470,
-      dy: -80,
-      dx: -90
-    },
-    {
-      note: {
-        label: "Lockdown measures seems to correlate with decrease in daily new cases",
-        title: "Decrease in Daily New Cases"
-      },
-      x: 385,
-      y: 610,
-      dy: -70,
-      dx: 70
-    },
-    {
-      //below in makeAnnotations has type set to d3.annotationLabel
-      //you can add this type value below to override that default
-      type: d3.annotationCalloutCircle,
-      note: {
-        label: "However, after stringency index lowered down, new cases seems to be picking up again",
-        title: "New Cases Increase",
-      },
-      //settings for the subject, in this case the circle radius
-      subject: {
-        radius: 50
-      },
-      x: 760,
-      y: 680,
-      dy: -50,
-      dx: -60
-    }].map(function(d){ d.color = "#000000"; return d})
+//annotation 1
+g.append('line').attr("class","annotation1").style("stroke", "black")
+    .attr("x1", 0).attr("y1", 0).attr("x2", 70).attr("y2", 40);
+g.append("text").attr("class","annotation1").attr("x", -100).attr("y", 0).attr("dy","-4em").text("Lockdown Measures")
+    .style("font-size", "14px").style("font-weight", "bold");
+g.append("text").attr("class","annotation1").attr("x", -100).attr("y", 0).attr("dy","-3em").text("Started to be Applied")
+    .style("font-size", "14px").style("font-weight", "bold");
+g.append("text").attr("class","annotation1").attr("x", -100).attr("y", 0).attr("dy","-2em").text("Stringency Index are")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.append("text").attr("class","annotation1").attr("x", -100).attr("y", 0).attr("dy","-1em").text("increased gradually")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.selectAll(".annotation1").attr("transform", "translate(180,350)");
 
-   // var annCountry = d3.select("#filter-3").property("value");
+//annotation 2
+g.append('line').attr("class","annotation2").style("stroke", "black")
+    .attr("x1", 30).attr("y1", 0).attr("x2", -70).attr("y2", 110);
+g.append("text").attr("class","annotation2").attr("x", 0).attr("y", 0).attr("dy","-5em").text("Decrease in Daily")
+    .style("font-size", "14px").style("font-weight", "bold");
+g.append("text").attr("class","annotation2").attr("x", 0).attr("y", 0).attr("dy","-4em").text("New Cases")
+    .style("font-size", "14px").style("font-weight", "bold");
+g.append("text").attr("class","annotation2").attr("x", 0).attr("y", 0).attr("dy","-3em").text("Lockdown measures seems")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.append("text").attr("class","annotation2").attr("x", 0).attr("y", 0).attr("dy","-2em").text("to correlate with decrease")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.append("text").attr("class","annotation2").attr("x", 0).attr("y", 0).attr("dy","-1em").text("in daily new cases")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.selectAll(".annotation2").attr("transform", "translate(400,450)");
 
-    const makeAnnotations = d3.annotation()
-      .type(d3.annotationLabel)
-      .annotations(annotations)
+//annotation 3
+g.append('line').attr("class","annotation3").style("stroke", "black")
+    .attr("x1", 0).attr("y1", 0).attr("x2", 70).attr("y2", 40);
+g.append("text").attr("class","annotation3").attr("x", -50).attr("y", 0).attr("dy","-5em").text("New Cases")
+    .style("font-size", "14px").style("font-weight", "bold");
+g.append("text").attr("class","annotation3").attr("x", -50).attr("y", 0).attr("dy","-4em").text("Increase")
+    .style("font-size", "14px").style("font-weight", "bold");
+g.append("text").attr("class","annotation3").attr("x", -50).attr("y", 0).attr("dy","-3em").text("However, in the end of June")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.append("text").attr("class","annotation3").attr("x", -50).attr("y", 0).attr("dy","-2em").text("new cases seems to be")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.append("text").attr("class","annotation3").attr("x", -50).attr("y", 0).attr("dy","-1em").text("picking up again")
+    .style("font-size", "12px").style("font-weight", "normal");
+g.append("circle").attr("class","annotation3").attr("cx", 115).attr("cy", 60).attr("r", 50)
+    .style("stroke", "black").style("fill", "transparent");
+g.selectAll(".annotation3").attr("transform", "translate(600,600)");
 
-    d3.select("svg")
-      .append("g")
-      .attr("class", "annotation-group")
-      .call(makeAnnotations)

@@ -8,10 +8,6 @@
 
     <!-- Load d3.js and plugin -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
-    <!--script src="https://d3js.org/d3-selection-multi.v1.min.js"></script-->
 
     <title>Covid-19 Narrative Visualization</title>
 
@@ -43,45 +39,6 @@
         fill: brown;
       }
 
-    /*sliders*/
-    .ticks {
-      font-size: 11px;
-    }
-    .label{
-      font-size: 12px;
-    }
-    
-    .track,
-    .track-inset,
-    .track-overlay {
-      stroke-linecap: round;
-    }
-
-    .track {
-      stroke: #000;
-      stroke-opacity: 0.3;
-      stroke-width: 6px;
-    }
-
-    .track-inset {
-      stroke: #ddd;
-      stroke-width: 3px;
-    }
-
-    .track-overlay {
-      pointer-events: stroke;
-      stroke-width: 30px;
-      stroke: transparent;
-      /*cursor: crosshair;*/
-    }
-
-    .handle {
-      fill: #fff;
-      stroke: #000;
-      stroke-opacity: 0.5;
-      stroke-width: 1.25px;
-    }
-
     </style>
     <!-- Custom styles for this template-->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
@@ -100,11 +57,10 @@
   
     <div class="nav-scroller py-1 mb-2">
       <nav class="nav d-flex justify-content-between">
-        <a class="p-2 text-muted" href="index.html">Stringency Index Map</a>
-        <a class="p-2 text-muted" href="scene-2.html">Key Countries Data</a>
-        <a class="p-2 text-muted" href="scene-3.html">Australia Data</a>
-        <a class="p-2 text-muted" href="scene-3-Australia.html">India Data</a>
-        <a class="p-2 text-muted" href="scene-3-India.html">Japan Data</a>
+        <a class="p-2 text-muted" href="index.html">About Stringency Index</a>
+        <a class="p-2 text-muted" href="scene-2-Australia.html">Australia Data</a>
+        <a class="p-2 text-muted" href="scene-2-India.html">India Data</a>
+        <a class="p-2 text-muted" href="scene-2-Japan.html">Japan Data</a>
         <a class="p-2 text-muted" href="scene-3.html">Explore Countries Data</a>
       </nav>
     </div>
@@ -125,7 +81,7 @@
 
 
       <div class="blog-post">
-        <h3>Covid-19 Stringency Index Map</h3>
+        <h3>About Covid-19 Stringency Index</h3>
         <p class="blog-post-meta">August 1, 2020 by <a href="#">Akhmad Rahadian Hutomo</a></p>
 
         <p>The <strong>Oxford COVID-19 Government Response Tracker (OxCGRT) </strong> systematically collects information on several different common policy responses that governments 
@@ -138,20 +94,32 @@
           lower on the index.</p>
         </div>
         <hr>
-
-        <h5 class="text-center" id="scene1-header"> Stringency Index progression over time around the world</h5>
    
-        <!-- Scene 1 Visualisation Script-->
-        
-        <div id="slider" class="text-center"></div>
-        <svg id="scene-1" width="960" height="600"></svg>
-        <script src="scene-1.js"></script>
+        <h3>Key Countries Stringency Index</h3>
+        <p>This scene is to explore the difference between country governments in responding to COVID-19 Cases. The red lines represents changes in stringency index over the course of 
+          February to June 2020. </p>
+          <p>An increase in the line indicates government takes stricter lockdown approach, <i>vice versa</i>.  The inclines also shows how drastic the changes made over time. There 
+            are 15 countries picked by the author, to visualize the difference of the stringency index over time.</p>
 
-        <p></p>
-        <p>This scene explores the progression of stringency index around the world, over time. The original stringency index records the strictness of ‘lockdown style’ policies that primarily restrict people’s behaviour. Later, the index also 
-          includes an overall government response index, which records how the response of governments has varied over all indicators in the database, becoming 
-          stronger or weaker over the course of the outbreak. The index also measures containment and health index which combines ‘lockdown’ restrictions and 
-          closures with measures such as testing policy and contact tracing, short term investment in healthcare, as well investments in vaccine.</p>
+            <P>The original stringency index records the strictness of ‘lockdown style’ policies that primarily restrict people’s behaviour. Later, the index also 
+            includes an overall government response index, which records how the response of governments has varied over all indicators in the database, becoming 
+            stronger or weaker over the course of the outbreak. The index also measures containment and health index which combines ‘lockdown’ restrictions and 
+            closures with measures such as testing policy and contact tracing, short term investment in healthcare, as well investments in vaccine.</p>
+        
+        <!--Scene 2 Visualisation Script-->
+        <div id="scene-1"></div>
+        <script src="scene-1.js"></script>
+        
+        <p>As we may observe, each countries has different approach in responding to the pandemic. There are some general pattern we may observe from this visualisations:</p>
+        <ul>
+          <li> Countries that takes a gradual increase of lockdown, as represented by Singapore and South Korea. </li>
+          <li> Countries that takes a drastic approach to lockdown, which may indicates sudden lockdown as indicated in Italy, India and Honduras. </li>
+          <li> Some countries takes lighter approach to lockdown, such as Japan and Sweden.</li>
+          <li> There's also some pattern where lockdown was gradually reduced as indicated in Australia and New Zealand.</li>
+        </ul>
+
+        <p>We will take a look closely at some countries, namely <strong>Australia</strong>, <strong>India</strong>, and <strong>Japan</strong> and observe the new cases reported daily and its correlation to this Stringency Index</p>
+
 
         <h6> Data Source</h6>
         <p>Collection of the COVID-19 data maintained by Our World in Data. Data is updated daily and includes data on confirmed cases, deaths, and testing, as 
@@ -162,7 +130,7 @@
 
       <nav class="blog-pagination">
         <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Previous Scene</a>
-        <a class="btn btn-outline-primary" href="scene-2.html">Next Scene: Key Counties Data</a>
+        <a class="btn btn-outline-primary" href="scene-2-Australia.html">Next Scene: Australia Data</a>
       </nav>
 
     </div><!-- /.blog-main -->
