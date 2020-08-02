@@ -77,10 +77,12 @@ d3.csv("./owid-covid-data.csv", function(data) {
     .append("g")
     .attr("transform", "translate(0," + height2 + ")")
     .call(d3.axisBottom(x).ticks(3))
-    .selectAll("text")
-        .style("visibility","hidden")
-    .selectAll("line")
-    .style("visibility","hidden");
+    .selectAll(".tick")
+      .attr("opacity",0);
+    svg2.append("text").attr("x", 0).attr("y", 165).text("1-Feb")
+      .style("font-size", "10px");
+    svg2.append("text").attr("x", 130).attr("y", 165).text("30-Jun")
+      .style("font-size", "10px");
 
   //Add Y axis
   var y = d3.scaleLinear()
